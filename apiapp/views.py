@@ -30,3 +30,10 @@ def booksAPI(request):
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
+
+@api_view(['GET'])
+def oneBookAPI(request, bid):
+    #Book 테이블에서 bid 컬럼의 값이 bid인값을 찾아옵니다.
+    book = get_object_or_404(Book, bid=bid)
+    serializer = BookSerializer(book)
+    return Response(serializer.data)
